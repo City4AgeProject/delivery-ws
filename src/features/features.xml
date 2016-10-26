@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="City 4 Age - Delivery" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+
+	<repository>mvn:org.universAAL/uAAL.karaf.feature/${uAAL.version}/xml/features</repository>
+
+	<feature name="City4Age.Delivery" description="Delivery subsystem for City 4 Age"
+		version="${pom.version}" resolver='(obr)'>
+<!-- 		<feature>uAAL-Minimal.Coordinator</feature>  -->
+		<feature>uAAL-RI.Service.Gateway</feature> 
+		<bundle start-level='50' start='false'>wrap:mvn:org.apache.directory.studio/org.apache.commons.io/2.4</bundle>
+		<bundle start-level='75' start='true'>mvn:eu.city4ageproject.delivery/webservice.central.interface/${pom.version}</bundle>
+	</feature>
+	
+</features>

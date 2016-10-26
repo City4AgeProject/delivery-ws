@@ -11,9 +11,12 @@
   <artifactId>webservice.central.interface</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
+  <name>City 4 Age Delivery Central Server Interface</name>
 
   <properties>
-    <separatedGroupIds>org.universAAL.middleware</separatedGroupIds>
+    <separatedGroupIds>org.universAAL.middleware</separatedGroupIds>  
+    <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+    <uAAL.version>3.4.1-SNAPSHOT</uAAL.version>
   </properties>
 
   <dependencies>
@@ -70,7 +73,50 @@
 				</instructions>
 			</configuration>
 		</plugin>
-	</plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-features</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/features</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/features</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/features/features.xml</file>
+                  <type>xml</type>
+                  <classifier>features</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   
 </project>
