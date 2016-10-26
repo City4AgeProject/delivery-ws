@@ -15,8 +15,6 @@
  ******************************************************************************/
 package eu.city4ageproject.delivery;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -26,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.ri.servicegateway.GatewayPort;
 
 import com.google.gson.GsonBuilder;
@@ -45,6 +44,13 @@ public final class HTTPService extends GatewayPort {
 	private static final long serialVersionUID = 8571701583484962621L;
 
 	
+	/**
+	 * @param mcontext
+	 */
+	public HTTPService(ModuleContext mcontext) {
+		super(mcontext);
+	}
+
 	private GsonBuilder gsonBuilder = new GsonBuilder();
 	
 	/**{@inheritDoc} */
@@ -56,7 +62,7 @@ public final class HTTPService extends GatewayPort {
 	/**{@inheritDoc} */
 	@Override
 	public String dataDir() {
-		return "./";
+		return "dir";
 	}
 
 	
@@ -66,29 +72,41 @@ public final class HTTPService extends GatewayPort {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		super.doPost(req, resp);
-		if (req.getContentType().toLowerCase().contains("application/json")
-				&& req.getCharacterEncoding().toLowerCase().contains("utf")
-				&& req.getCharacterEncoding().toLowerCase().contains("8")){
+		if (req.getContentType()!= null 
+				&& req.getContentType().toLowerCase().contains("application/json")
+//				&& req.getCharacterEncoding() != null
+//				&& req.getCharacterEncoding().toLowerCase().contains("utf")
+//				&& req.getCharacterEncoding().toLowerCase().contains("8")
+				){
 			ServletInputStream is = req.getInputStream();
 			String request = IOUtils.toString(is, "UTF-8"); 
 			try {
 				DeliveryRequest drequest = gsonBuilder.create().fromJson(request, DeliveryRequest.class);
-				resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+				if (drequest.getPilotID() > 0
+						&& drequest.getUserID() > 0
+						&& drequest.getIntervention() !=null) {
+					resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+					return;
+				}
+				
 				//TODO get parameters into the Actual delivery
 			} catch (JsonSyntaxException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-				resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-				PrintStream ps = new PrintStream(resp.getOutputStream());
-				ps.print("Request not acceptable.\n cotnent is not compliant to schema.");
 				
 			}
+			resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+			PrintStream ps = new PrintStream(resp.getOutputStream());
+			ps.print("Request not acceptable.\n cotnent is not compliant to schema.");
 		}
 		else {
 			resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+			resp.setContentType("text/html");
+			resp.setCharacterEncoding("UTF-8");
 			PrintStream ps = new PrintStream(resp.getOutputStream());
-			ps.print("Request not acceptable.\n Content Type must be: application/json, and Character Encoding must be: UTF-8");
+			ps.print("Request not acceptable.<br> " +
+					"Content-Type: application/json <br>" 
+//					+" Content-Encoding: UTF-8"
+					);
 		}
 	}
 

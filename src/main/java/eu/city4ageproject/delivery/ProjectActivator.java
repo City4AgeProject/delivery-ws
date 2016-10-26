@@ -16,7 +16,7 @@ public class ProjectActivator implements ModuleActivator {
 		 * uAAL stuff
 		 */
 		
-		servlet = new HTTPService();
+		servlet = new HTTPService(context);
 		
 		servlet.register();
 		
