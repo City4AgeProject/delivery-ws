@@ -21,8 +21,8 @@ package eu.city4ageproject.delivery.model;
  */
 public class DeliveryRequest {
 
-	int userID;
-	int pilotID;
+	String userID;
+	String pilotID;
 	
 	SimpleIntervention intervention;
 	
@@ -31,28 +31,28 @@ public class DeliveryRequest {
 	/**
 	 * @return the userID
 	 */
-	public int getUserID() {
+	public String getUserID() {
 		return userID;
 	}
 
 	/**
 	 * @param userID the userID to set
 	 */
-	public void setUserID(int userID) {
+	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 
 	/**
 	 * @return the pilotID
 	 */
-	public int getPilotID() {
+	public String getPilotID() {
 		return pilotID;
 	}
 
 	/**
 	 * @param pilotID the pilotID to set
 	 */
-	public void setPilotID(int pilotID) {
+	public void setPilotID(String pilotID) {
 		this.pilotID = pilotID;
 	}
 

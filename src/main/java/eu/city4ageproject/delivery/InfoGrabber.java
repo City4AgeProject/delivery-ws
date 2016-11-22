@@ -24,17 +24,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.universAAL.middleware.container.ModuleContext;
-
 
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
@@ -62,12 +58,12 @@ public class InfoGrabber {
 		mc = mctxt;
 	}
 	
-	public VCard getVCard(int pilotID, int userID){
+	public VCard getVCard(String pilotID, String userID){
 		
 		//resolve pilot URL Service
 		URL service = null;
 		try {
-			service = new URL(getPilotVcardService(pilotID) + Integer.toString(userID));
+			service = new URL(getPilotVcardService(pilotID) + userID);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,13 +104,13 @@ public class InfoGrabber {
 		return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
 	}
 	
-	String getPilotVcardService(int pilotID){
+	String getPilotVcardService(String pilotID){
 		String service = "";
 		try {
 			InputStream i = resolveConfigFile();
 			Properties props = new Properties();
 			props.load(i);
-			service = props.getProperty(PROP_PREFIX + Integer.toString(pilotID));
+			service = props.getProperty(PROP_PREFIX + pilotID);
 			if (!service.endsWith("/")){
 				service += "/";
 			}

@@ -47,7 +47,7 @@ public class UnitTest extends TestCase
    
     	assertNotNull(object);
     	
-    	assertEquals(7,object.getUserID());
+    	assertEquals("007",object.getUserID());
     	assertEquals("HOLA", object.getIntervention().getSalutation());
     }
     
