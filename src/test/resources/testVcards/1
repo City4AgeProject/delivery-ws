@@ -1,0 +1,5 @@
+BEGIN:VCARD
+N:Test;Test;Tester;Mr;
+EMAIL;INTERNET:test@test.test
+TEL;CELL:+00123456789
+END:VCARD

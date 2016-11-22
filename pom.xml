@@ -41,6 +41,10 @@
   		<artifactId>mw.bus.ui.core</artifactId>
   	</dependency> 
   	<dependency>
+  		<groupId>org.universAAL.middleware</groupId>
+  		<artifactId>mw.container.junit</artifactId>
+  	</dependency> 
+  	<dependency>
   		<groupId>org.universAAL.remote</groupId>
   		<artifactId>ri.servicegateway</artifactId>
   	</dependency>
@@ -59,6 +63,16 @@
 		<groupId>com.google.code.gson</groupId>
 		<artifactId>gson</artifactId>
 	</dependency>
+	<dependency>
+   		<groupId>com.googlecode.ez-vcard</groupId>
+		<artifactId>ez-vcard</artifactId>
+		<version>0.10.0</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.apache.httpcomponents</groupId>
+    	<artifactId>httpclient</artifactId>
+    	<version>4.5.2</version>
+	</dependency>	
   </dependencies>
 
   <build>
