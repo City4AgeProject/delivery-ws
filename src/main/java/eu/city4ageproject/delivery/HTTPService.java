@@ -49,6 +49,7 @@ public final class HTTPService extends GatewayPort {
 	 */
 	public HTTPService(ModuleContext mcontext) {
 		super(mcontext);
+		
 	}
 
 	private GsonBuilder gsonBuilder = new GsonBuilder();
@@ -82,9 +83,13 @@ public final class HTTPService extends GatewayPort {
 			String request = IOUtils.toString(is, "UTF-8"); 
 			try {
 				DeliveryRequest drequest = gsonBuilder.create().fromJson(request, DeliveryRequest.class);
-				if (drequest.getPilotID() > 0
-						&& drequest.getUserID() > 0
+				if (drequest.getPilotID() != null 
+						&& !drequest.getPilotID().isEmpty()
+						&& drequest.getUserID() != null
+						&& !drequest.getUserID().isEmpty()
 						&& drequest.getIntervention() !=null) {
+					//connect to uAAL
+					
 					resp.setStatus(HttpServletResponse.SC_ACCEPTED);
 					return;
 				}

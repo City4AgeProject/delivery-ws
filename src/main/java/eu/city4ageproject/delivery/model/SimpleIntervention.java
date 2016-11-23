@@ -49,5 +49,13 @@ public class SimpleIntervention{
 	String body;
 	String closing;
 	String signature;
+	/** {@inheritDoc} */
+	@Override
+	public String toString() {
+		//TODO Add new lines?
+		return salutation + body + closing + signature;
+	}
+	
+	
 	
 }
