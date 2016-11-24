@@ -8,6 +8,9 @@
 <!-- 		<feature>uAAL-Minimal.Coordinator</feature>  -->
 		<feature>uAAL-RI.Service.Gateway</feature> 
 		<bundle start-level='50' start='false'>wrap:mvn:org.apache.directory.studio/org.apache.commons.io/2.4</bundle>
+		<bundle start-level='50' start='false'>wrap:mvn:com.googlecode.ez-vcard/ez-vcard/0.10.0</bundle>
+		<bundle start-level='50' start='true' dependency="true">mvn:org.apache.httpcomponents/httpcore-osgi/4.4.5</bundle>
+		<bundle start-level='50' start='true' dependency="true">mvn:org.apache.httpcomponents/httpclient-osgi/4.5.2</bundle>
 		<bundle start-level='75' start='true'>mvn:eu.city4ageproject.delivery/webservice.central.interface/${pom.version}</bundle>
 	</feature>
 	
