@@ -9,7 +9,7 @@
 
   <groupId>eu.city4ageproject.delivery</groupId>
   <artifactId>webservice.central.interface</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>City 4 Age Delivery Central Server Interface</name>
 

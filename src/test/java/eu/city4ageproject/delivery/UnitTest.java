@@ -64,9 +64,9 @@ public class UnitTest extends TestCase
     	InfoGrabber ig = new InfoGrabber(mc);
     	
     	assertNotNull(ig.resolveConfigFile());
-    	assertEquals("file:./target/test-classes/testVcards/", ig.getPilotVcardService(404));
+    	assertEquals("file:./target/test-classes/testVcards/", ig.getPilotVcardService("404"));
     	
-    	VCard vc = ig.getVCard(404, 1);
+    	VCard vc = ig.getVCard("404", "1");
     	assertNotNull(vc);
     }
 }
