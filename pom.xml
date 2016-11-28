@@ -118,5 +118,28 @@
       </plugin>
     </plugins>
   </build>
-  
+  	<repositories>
+		<repository>
+			<id>uaal</id>
+			<name>universAAL Repositories</name>
+			<url>http://depot.universaal.org/nexus/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>uaal-snapshots</id>
+			<name>universAAL Snapshot Repositories</name>
+			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>uaal-thirdparty</id>
+			<name>Redirection</name>
+			<url>http://depot.universaal.org/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</repositories>
 </project>
