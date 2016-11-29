@@ -83,6 +83,9 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+			            <Bundle-Name>${project.name}</Bundle-Name>
+			            <Bundle-Description>${project.description}</Bundle-Description>
+			            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>eu.city4ageproject.delivery</Export-Package>
 					</instructions>
 				</configuration>
