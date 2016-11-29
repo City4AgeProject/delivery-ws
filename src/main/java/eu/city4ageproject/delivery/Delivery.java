@@ -31,6 +31,8 @@ import org.universAAL.ontology.profile.User;
 
 import eu.city4ageproject.delivery.model.DeliveryRequest;
 import ezvcard.VCard;
+import ezvcard.parameter.TelephoneType;
+import ezvcard.property.Telephone;
 
 /**
  * @author amedrano
@@ -59,7 +61,7 @@ public class Delivery extends UICaller {
 		
 		//TODO check for Telephone and adjust channel.
 		Form f = Form.newDialog((String) null, (Resource) null);
-		new SimpleOutput(f.getIOControls(), null, null, userInfo.getTelephoneNumbers().get(0).getText());
+		new SimpleOutput(f.getIOControls(), null, null, processCellPhoneNo(userInfo));
 		new SimpleOutput(f.getIOControls(), null, null, message);
 		
 		//TODO Adjust to actual language
@@ -89,6 +91,32 @@ public class Delivery extends UICaller {
 	public void handleUIResponse(UIResponse uiResponse) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	static String processCellPhoneNo(VCard card){
+		String phone = "";
+		tels:
+		for (Telephone tel : card.getTelephoneNumbers()) {
+			for (TelephoneType ttype : tel.getTypes()) {
+				if (ttype.equals(TelephoneType.CELL)
+						|| ttype.equals(TelephoneType.MSG)
+						|| ttype.equals(TelephoneType.PAGER)
+						|| ttype.equals(TelephoneType.TEXT)
+						|| ttype.equals(TelephoneType.TEXTPHONE)){
+					phone = tel.toString();
+					break tels;
+				}
+			}
+		}
+		//remove whitespaces
+		phone.replaceAll("\\w", "");
+		//remove preceding "+"
+		phone.replaceAll("^\\+", "");
+		//remove preceding "0"s
+		phone.replaceAll("^0+", "");
+		
+		return phone;
+		
 	}
 
 }
