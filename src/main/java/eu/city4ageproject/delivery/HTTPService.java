@@ -42,6 +42,7 @@ public final class HTTPService extends GatewayPort {
 	 * 
 	 */
 	private static final long serialVersionUID = 8571701583484962621L;
+	private Delivery delivery;
 
 	
 	/**
@@ -49,7 +50,7 @@ public final class HTTPService extends GatewayPort {
 	 */
 	public HTTPService(ModuleContext mcontext) {
 		super(mcontext);
-		
+		delivery = new Delivery(mcontext);
 	}
 
 	private GsonBuilder gsonBuilder = new GsonBuilder();
@@ -89,8 +90,10 @@ public final class HTTPService extends GatewayPort {
 						&& !drequest.getUserID().isEmpty()
 						&& drequest.getIntervention() !=null) {
 					//connect to uAAL
-					
-					resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+					if (delivery.sendIntervention(drequest))
+						resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+					else
+						resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 					return;
 				}
 				

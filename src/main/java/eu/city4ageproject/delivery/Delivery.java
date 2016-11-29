@@ -27,6 +27,7 @@ import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.PrivacyLevel;
 import org.universAAL.middleware.ui.rdf.Form;
 import org.universAAL.middleware.ui.rdf.SimpleOutput;
+import org.universAAL.ontology.profile.User;
 
 import eu.city4ageproject.delivery.model.DeliveryRequest;
 import ezvcard.VCard;
@@ -47,21 +48,27 @@ public class Delivery extends UICaller {
 		info = new InfoGrabber(context);
 	}
 	
-	public void sendIntervention(DeliveryRequest dreq){
+	public boolean sendIntervention(DeliveryRequest dreq){
 		String userURI = info.getPilotVcardService(dreq.getPilotID()) + dreq.getUserID();
 		VCard userInfo = info.getVCard(dreq.getPilotID(), dreq.getUserID());
 		String message = dreq.getIntervention().toString();
 		
+		if (userInfo == null || message == null){
+			return false;
+		}
+		
+		//TODO check for Telephone and adjust channel.
 		Form f = Form.newDialog((String) null, (Resource) null);
-		new SimpleOutput(f.getIOControls(), null, null, userInfo.getTelephoneNumbers().get(0));
+		new SimpleOutput(f.getIOControls(), null, null, userInfo.getTelephoneNumbers().get(0).getText());
 		new SimpleOutput(f.getIOControls(), null, null, message);
 		
 		//TODO Adjust to actual language
 		Locale lang = Locale.ENGLISH;
 		
-		UIRequest uireq = new UIRequest(new Resource(userURI), f, LevelRating.high, lang, PrivacyLevel.personal);
+		UIRequest uireq = new UIRequest(new User(userURI), f, LevelRating.high, lang, PrivacyLevel.personal);
 		uireq.setPresentationModality(Modality.sms);
 		sendUIRequest(uireq);
+		return true;
 	}
 
 	/** {@inheritDoc} */

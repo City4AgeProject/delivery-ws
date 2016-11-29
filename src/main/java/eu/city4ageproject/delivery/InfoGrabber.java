@@ -31,6 +31,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
@@ -94,13 +95,16 @@ public class InfoGrabber {
 		File configDir = mc.getConfigHome();
 		File conf = new File(configDir,CONFIG_FILE_NAME);
 		if (conf.exists()){
+			LogUtils.logDebug(mc, getClass(), "resolveConfigFile", "Using config file:" + conf.getAbsolutePath());
 			return new FileInputStream(conf);
 		}
 		configDir = mc.getDataFolder();
 		conf = new File(configDir,CONFIG_FILE_NAME);
 		if (conf.exists()){
+			LogUtils.logDebug(mc, getClass(), "resolveConfigFile", "Using config file:" + conf.getAbsolutePath());
 			return new FileInputStream(conf);
 		}
+		LogUtils.logDebug(mc, getClass(), "resolveConfigFile", "Using resource file as config file.");
 		return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
 	}
 	
@@ -111,7 +115,7 @@ public class InfoGrabber {
 			Properties props = new Properties();
 			props.load(i);
 			service = props.getProperty(PROP_PREFIX + pilotID);
-			if (!service.endsWith("/")){
+			if (service != null && !service.endsWith("/")){
 				service += "/";
 			}
 		} catch (IOException e) {
