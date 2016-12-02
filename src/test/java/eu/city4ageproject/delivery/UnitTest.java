@@ -9,6 +9,7 @@ import org.universAAL.container.JUnit.JUnitModuleContext;
 
 import com.google.gson.GsonBuilder;
 
+import eu.city4ageproject.delivery.InfoGrabber.VcardType;
 import eu.city4ageproject.delivery.model.DeliveryRequest;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
@@ -68,5 +69,12 @@ public class UnitTest extends TestCase
     	
     	VCard vc = ig.getVCard("404", "1");
     	assertNotNull(vc);
+    }
+    
+    public void testPhone() throws IOException {
+    	VCard card = Ezvcard.parse(getClass().getClassLoader().getResourceAsStream("testVcards/1")).first();
+    	String o = Delivery.processCellPhoneNo(card);
+//    	System.out.println(o);
+    	assertEquals("123456789", o);
     }
 }

@@ -103,17 +103,17 @@ public class Delivery extends UICaller {
 						|| ttype.equals(TelephoneType.PAGER)
 						|| ttype.equals(TelephoneType.TEXT)
 						|| ttype.equals(TelephoneType.TEXTPHONE)){
-					phone = tel.toString();
+					phone = tel.getText();
 					break tels;
 				}
 			}
 		}
 		//remove whitespaces
-		phone.replaceAll("\\w", "");
+		phone = phone.replaceAll("\\s+", "");
 		//remove preceding "+"
-		phone.replaceAll("^\\+", "");
+		phone = phone.replaceAll("\\+", "");
 		//remove preceding "0"s
-		phone.replaceAll("^0+", "");
+		phone = phone.replaceAll("^0+", "");
 		
 		return phone;
 		
